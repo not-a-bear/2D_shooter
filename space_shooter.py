@@ -1,9 +1,11 @@
 import pygame
-import time, random, sys, math
+import os, random, math, sys
 
 pygame.init()
 pygame.mixer.init()
 pygame.font.init()
+
+cwd = os.getcwd()
 
 WIDTH, HEIGHT = 1920, 1080
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -121,16 +123,21 @@ enemies = pygame.sprite.Group()
 player = Player((WIDTH / 2, HEIGHT / 2))
 
 # load cursor image, hide cursor
-new_cursor = pygame.image.load('TrigTest/images/crosshair2.png').convert_alpha()
+new_cursor_path = os.path.join(cwd, 'images', 'crosshair2.png')
+new_cursor = pygame.image.load(new_cursor_path).convert_alpha()
 pygame.mouse.set_visible(False)
 
 # load and assign audio files
-SHOOT_SOUND = pygame.mixer.Sound('TrigTest/audio/shoot.wav')
+shoot_sound_path = os.path.join(cwd, 'audio', 'shoot.wav')
+SHOOT_SOUND = pygame.mixer.Sound(shoot_sound_path)
 SHOOT_SOUND.set_volume(0.7)
-ENEMY_DEATH_SOUND = pygame.mixer.Sound('TrigTest/audio/success.wav')
+enemy_death_sound_path = os.path.join(cwd, 'audio', 'success.wav')
+ENEMY_DEATH_SOUND = pygame.mixer.Sound(enemy_death_sound_path)
 ENEMY_DEATH_SOUND.set_volume(0.25)
-GET_HIT_SOUND = pygame.mixer.Sound('TrigTest/audio/roblox-death-sound_1.mp3')
-LOSE_SOUND = pygame.mixer.Sound('TrigTest/audio/sfx_lose.wav')
+get_hit_sound_path = os.path.join(cwd, 'audio', 'roblox-death-sound_1.mp3')
+GET_HIT_SOUND = pygame.mixer.Sound(get_hit_sound_path)
+lose_sound_path = os.path.join(cwd, 'audio', 'sfx_lose.wav')
+LOSE_SOUND = pygame.mixer.Sound(lose_sound_path)
 
 def main():
     run = True
@@ -164,7 +171,7 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-                break
+                sys.exit()
 
             # generate projectile aimed at mouse when clicked
             if event.type == pygame.MOUSEBUTTONDOWN:
