@@ -1,2 +1,4 @@
 # space_shooter
-space shooter game
+space shooter game  
+W/A/S/D = move
+click = shoot
